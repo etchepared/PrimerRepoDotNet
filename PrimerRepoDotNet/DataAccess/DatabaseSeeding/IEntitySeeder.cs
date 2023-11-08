@@ -1,6 +1,9 @@
-﻿namespace PrimerRepoDotNet.DataAccess.DatabaseSeeding
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace PrimerRepoDotNet.DataAccess.DatabaseSeeding
 {
-    public class IEntitySeeder
+    public interface IEntitySeeder
     {
+        void SeedDatabase(ModelBuilder modelBuilder);
     }
 }
