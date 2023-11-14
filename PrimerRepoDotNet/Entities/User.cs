@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrimerRepoDotNet.Entities
 {
+    [Table("Users")]
     public class User
     {
         [Key]
