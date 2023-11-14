@@ -15,14 +15,14 @@ namespace PrimerRepoDotNet.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var seeders = new List<IEntitySeeder> {
-            new UserSeeder()
+            var seeders = new List<IEntitySeeder> 
+            {
+                new UserSeeder()
             };
 
             foreach (var seeder in seeders)
             {
-                seeder.SeedDatabase(modelBuilder);
-                
+                seeder.SeedDatabase(modelBuilder);   
             }
 
             base.OnModelCreating(modelBuilder);

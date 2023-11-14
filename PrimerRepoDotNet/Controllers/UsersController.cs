@@ -1,17 +1,26 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PrimerRepoDotNet.DTOs;
+using PrimerRepoDotNet.Services;
 
 namespace PrimerRepoDotNet.Controllers
 {
-    [Route("api/[controller]")] //La ruta en postman es /api/Users porque es el nombre del controller
+    [Route("/api/[controller]")] //La ruta en postman es /api/Users porque es el nombre del controller
     [ApiController]
     public class UsersController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult GetAll()
+
+        private readonly IUnitOfWork _unitOfWork;
+        public UsersController(IUnitOfWork unitOfWork)
         {
-            return Ok();
+            _unitOfWork = unitOfWork;
+        }
+
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(await _unitOfWork.UserRepository.GetAllUsers());
         }
 
         //[HttpGet] //Indica el tipo de llamado
@@ -33,11 +42,12 @@ namespace PrimerRepoDotNet.Controllers
         //    return Ok(id); //Ok devuelve un 200
         //}
 
-        //[HttpPost] //Le tengo que enviar la data por body
-        //public ActionResult PostUser(UserLoginDTO userLoginDTO)
-        //{
-        //    return Ok(userLoginDTO); 
-        //}
+        [HttpPost] //Le tengo que enviar la data por body
+        [Route("Register")]
+        public async Task<ActionResult> Register(UserRegisterDTO userRegisterDTO)
+        {
+            return Ok(userRegisterDTO); 
+        }
 
         //[HttpPut] //
         //public ActionResult UserEdit(UserLoginDTO userLoginDTO)

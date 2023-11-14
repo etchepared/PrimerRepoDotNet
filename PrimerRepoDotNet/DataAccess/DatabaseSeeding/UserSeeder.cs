@@ -1,11 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;//hay que instalar
+//Herramientas/Administrador de paquetes Nuget/Administrar paquetes Nuget para la solución
+//buscamos EntityFramework e instalamos:
+//Microsoft.EntityFrameworkCore >Seleccionar versión 6
+//Microsoft.EntityFrameworkCore.SqlServer
+//Microsoft.EntityFrameworkCore.Tools
+//Microsoft.EntityFrameworkCore.Design
 using PrimerRepoDotNet.Entities;
 
 namespace PrimerRepoDotNet.DataAccess.DatabaseSeeding
 {
     public class UserSeeder : IEntitySeeder
     {
-        public void SeedDatabase(ModelBuilder modelBuilder) {
+        public void SeedDatabase(ModelBuilder modelBuilder) 
+        {
             modelBuilder.Entity<User>().HasData(
                     new User
                     {
@@ -31,3 +38,7 @@ namespace PrimerRepoDotNet.DataAccess.DatabaseSeeding
         }
     }
 }
+//completado el seeder probar si funciona con el migration
+//abrimos la consola desde Herramientas/Administrador de paquetes nuget/Consola del administrador de paquetes
+//utilizamos el comando add-migration Version1 (el nombre lo elegimos nosotros)
+//luego Update-Database
