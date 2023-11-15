@@ -30,5 +30,18 @@ namespace PrimerRepoDotNet.Repository
                 return false;
             }
         }
+        public async Task<bool> Update(T entity)
+        {
+            try
+            {
+                _contextDB.Set<T>().Update(entity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        
     }
 }

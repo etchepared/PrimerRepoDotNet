@@ -60,12 +60,36 @@ namespace PrimerRepoDotNet.Controllers
         //{
         //    return Ok(userLoginDTO);
         //}
+        [HttpPut] 
+        [Route("Update")]
+        public async Task<ActionResult> Update(int id, UserRegisterDTO userRegisterDTO)
+        {
+            var result = await _unitOfWork.UserRepository.UpdateUser(userRegisterDTO, id);
+            if (result)
+            {
+                await _unitOfWork.Complete();
+                return Ok("Se actualizó correctamente");
+            }
+            return BadRequest("Error");
+        }
 
         //[HttpDelete] //
         //public ActionResult UserDelete(int id)
         //{
         //    return Ok("Eliminado!"); //Ok devuelve un 200
         //}
+        [HttpDelete]
+        [Route("Delete")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var result = await _unitOfWork.UserRepository.DeleteUser(id);
+            if (result)
+            {
+                await _unitOfWork.Complete();
+                return Ok("Se eliminó correctamente");
+            }
+            return BadRequest("Error");
+        }
 
     }
 }
