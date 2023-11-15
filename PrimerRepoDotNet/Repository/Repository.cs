@@ -18,5 +18,17 @@ namespace PrimerRepoDotNet.Repository
             var entity = await _contextDB.Set<T>().ToListAsync();
             return entity;
         }
+        public async Task<bool> Insert(T entity)
+        {
+            try
+            {
+                _contextDB.Set<T>().Add(entity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

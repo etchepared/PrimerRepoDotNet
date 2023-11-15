@@ -46,7 +46,13 @@ namespace PrimerRepoDotNet.Controllers
         [Route("Register")]
         public async Task<ActionResult> Register(UserRegisterDTO userRegisterDTO)
         {
-            return Ok(userRegisterDTO); 
+            var result = await _unitOfWork.UserRepository.InsertUser(userRegisterDTO);
+            if (result)
+            {
+                await _unitOfWork.Complete();
+                return Ok("Se guardó correctamente");
+            }
+            return BadRequest("Error");
         }
 
         //[HttpPut] //
