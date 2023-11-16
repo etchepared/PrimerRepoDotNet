@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PrimerRepoDotNet.DTOs;
+using PrimerRepoDotNet.Infrastructure;
 using PrimerRepoDotNet.Services;
 
 namespace PrimerRepoDotNet.Controllers
@@ -20,7 +21,7 @@ namespace PrimerRepoDotNet.Controllers
         [Route("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _unitOfWork.UserRepository.GetAllUsers());
+            return (ActionResult)ResponseFactory.CreateSuccessResponse(200, await _unitOfWork.UserRepository.GetAllUsers());
         }
 
         //[HttpGet] //Indica el tipo de llamado
@@ -50,9 +51,9 @@ namespace PrimerRepoDotNet.Controllers
             if (result)
             {
                 await _unitOfWork.Complete();
-                return Ok("Se guardó correctamente");
+                return (ActionResult)ResponseFactory.CreateSuccessResponse(201, "Usuario creado correctamente");
             }
-            return BadRequest("Error");
+            return (ActionResult)ResponseFactory.CreateErrorResponse(400, "Error contactar a sistema");
         }
 
         //[HttpPut] //
@@ -68,9 +69,9 @@ namespace PrimerRepoDotNet.Controllers
             if (result)
             {
                 await _unitOfWork.Complete();
-                return Ok("Se actualizó correctamente");
+                return (ActionResult)ResponseFactory.CreateSuccessResponse(200, "El usuario se actualizó correctamente.");
             }
-            return BadRequest("Error");
+            return (ActionResult)ResponseFactory.CreateErrorResponse(400, "Error contactar al sistema.");
         }
 
         //[HttpDelete] //
@@ -86,9 +87,9 @@ namespace PrimerRepoDotNet.Controllers
             if (result)
             {
                 await _unitOfWork.Complete();
-                return Ok("Se eliminó correctamente");
+                return (ActionResult)ResponseFactory.CreateSuccessResponse(200, "El usuario fue eliminado correctamente.");
             }
-            return BadRequest("Error");
+            return (ActionResult)ResponseFactory.CreateErrorResponse(400, "Error contactar a sistema.");
         }
 
     }
